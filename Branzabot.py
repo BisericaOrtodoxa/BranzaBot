@@ -9,8 +9,7 @@ comanda="$branza"
 intents = discord.Intents.default()
 intents.message_content = True
 
-def rm_command(x,mesaj): #prelucrare mesaj și excludere comanda  
-    query = mesaj
+def rm_command(x,query): #prelucrare mesaj și excludere comanda  
     query_2 = query.replace(x, "") + " wikipedia.org"
     print("Search query: " + query_2)
     return query_2
