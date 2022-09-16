@@ -6,14 +6,13 @@ import random
 discord_token=input("bot token:")
 comanda="$branza"
 
+intents = discord.Intents.default()
+intents.message_content = True
+
 def rm_command(x): #prelucrare mesaj și excludere comanda
     query = message.content
     query_2 = query.replace(x, "") + " wikipedia.org"
     
-
-intents = discord.Intents.default()
-intents.message_content = True
-
 client = discord.Client(intents=intents)
 
 
