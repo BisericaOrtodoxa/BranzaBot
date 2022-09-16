@@ -12,6 +12,7 @@ intents.message_content = True
 def rm_command(x,mesaj): #prelucrare mesaj și excludere comanda  
     query = mesaj
     query_2 = query.replace(x, "") + " wikipedia.org"
+    print("Search query: " + query_2)
     return query_2
 client = discord.Client(intents=intents)
 
