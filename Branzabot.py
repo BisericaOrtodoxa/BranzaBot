@@ -9,10 +9,8 @@ comanda="$branza"
 intents = discord.Intents.default()
 intents.message_content = True
 
-def rm_command(x): #prelucrare mesaj și excludere comanda
-    intents = discord.Intents.default()
-    intents.message_content = True   
-    query = message.content
+def rm_command(x,mesaj): #prelucrare mesaj și excludere comanda  
+    query = mesaj
     query_2 = query.replace(x, "") + " wikipedia.org"
     
 client = discord.Client(intents=intents)
@@ -30,7 +28,7 @@ async def on_message(message):
     if "porn" in message.content:
         await message.channel.send("nu-i voie")     
     if message.content.startswith(comanda):
-        rm_command(comanda)
+        rm_command(comanda,message.content)
         for j in search(query_2, num=1, stop=1):
             await message.channel.send(j)
 
