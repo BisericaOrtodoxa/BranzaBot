@@ -6,11 +6,10 @@ import random
 discord_token=input("bot token:")
 comanda="$branza"
 
-def cautare(x):
+def rm_command(x): #prelucrare mesaj și excludere comanda
     query = message.content
     query_2 = query.replace(x, "") + " wikipedia.org"
-    for j in search(query_2, num=1, stop=1):
-        await message.channel.send(j)  
+    
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -30,7 +29,8 @@ async def on_message(message):
     if "porn" in message.content:
         await message.channel.send("nu-i voie")     
     if message.content.startswith(comanda):
-        cautare(comanda)
-
+        rm_command(comanda)
+        for j in search(query_2, num=1, stop=1):
+            await message.channel.send(j)
 
 client.run(discord_token)
