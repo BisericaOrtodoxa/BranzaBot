@@ -2,7 +2,7 @@ import discord
 from googlesearch import search
 import os
 
-discord_token="MTAxOTY1NjYxNjkyMjA2MjkyOA.G38ax3.WXY-4wXnSNTJOoIKtBSYSGcT3otoolIn5x1_UE"
+discord_token=""
 #def cauta(quer):
 #for j in search(quer, num_results=1):
 #result=j
