@@ -10,6 +10,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 def rm_command(x): #prelucrare mesaj și excludere comanda
+    intents = discord.Intents.default()
+    intents.message_content = True   
     query = message.content
     query_2 = query.replace(x, "") + " wikipedia.org"
     
