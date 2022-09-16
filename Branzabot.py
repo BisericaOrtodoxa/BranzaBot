@@ -4,7 +4,7 @@ import os
 
 discord_token=input("bot token:")
 #def cauta(quer):
-#for j in search(quer, num_results=1):
+#for j in search(quer, num=1):
 #result=j
 
 intents = discord.Intents.default()
