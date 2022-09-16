@@ -27,7 +27,7 @@ async def on_message(message):
     if message.content.startswith('$branza'):
         query = message.content
         query_2 = query.replace("$branza", "") + " wikipedia.org"
-        for j in search(query_2, num=1):
+        for j in search(query_2, num=1, stop=1):
             await message.channel.send(j)
 
 
