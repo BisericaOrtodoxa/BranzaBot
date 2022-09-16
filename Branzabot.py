@@ -1,11 +1,16 @@
 import discord
 from googlesearch import search
 import os
+import random
 
 discord_token=input("bot token:")
-#def cauta(quer):
-#for j in search(quer, num=1):
-#result=j
+comanda="$branza"
+
+def cautare(x):
+    query = message.content
+    query_2 = query.replace(x, "") + " wikipedia.org"
+    for j in search(query_2, num=1, stop=1):
+        await message.channel.send(j)  
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -24,11 +29,8 @@ async def on_message(message):
         return
     if "porn" in message.content:
         await message.channel.send("nu-i voie")     
-    if message.content.startswith('$branza'):
-        query = message.content
-        query_2 = query.replace("$branza", "") + " wikipedia.org"
-        for j in search(query_2, num=1, stop=1):
-            await message.channel.send(j)
+    if message.content.startswith(comanda):
+        cautare(comanda)
 
 
 client.run(discord_token)
