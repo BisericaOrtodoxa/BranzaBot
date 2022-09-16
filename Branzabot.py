@@ -2,7 +2,7 @@ import discord
 from googlesearch import search
 import os
 
-discord_token=input("bot token")
+discord_token=input("bot token:")
 #def cauta(quer):
 #for j in search(quer, num_results=1):
 #result=j
@@ -30,5 +30,5 @@ async def on_message(message):
         for j in search(query_2, num_results=1):
             await message.channel.send(j)
 
-my_secret = os.environ['discord_token']
-client.run(my_secret)
+
+client.run(discord_token)
