@@ -1,2 +1,2 @@
 # BranzaBot
-My first time creating a discord  
+My first time creating a discord bot
