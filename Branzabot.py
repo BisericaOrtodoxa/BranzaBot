@@ -6,31 +6,25 @@ import base64
 import os
 from datetime import datetime
 from discord.ext import commands
-from mal import *
+from jikanpy import Jikan #jikanpy_v4
+jikan = Jikan()
 
-game_squares = {
-    "square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0,
-    "square_8": 0, "square_9": 0,
-}
+game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0,"square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "just your average discord bot token"
+discord_token = "beep boop put token here"
 intents = discord.Intents.default()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
-intents = discord.Intents.default()
-intents.message_content = True
 number_emotes = ("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
 number_of_options_xrd=-1
 ##########################
-@bot.slash_command(name="google", description="Searches a website for the desired info",
-                   guild_ids=[1042811421718761606])  # this decorator makes a slash command
+@bot.slash_command(name="google", description="Searches a website for the desired info",guild_ids=[1042811421718761606])  # this decorator makes a slash command
 @option("website", description="Enter website", required=False, default='')
 @option("term", description="")
 # options for the created command
 
-async def google(ctx, term,
-                 website: str):  # command that performs a Google search based on user input via slash command
+async def google(ctx, term, website: str):  # command that performs a Google search based on user input via slash command
     async with ctx.typing():
         for j in search(str(term) + " " + str(website), num=1, stop=1):
             await ctx.respond(j)
@@ -38,8 +32,7 @@ async def google(ctx, term,
             #####################################
 
 
-@bot.slash_command(name="seconds", description="Set a timer in seconds",
-                   guild_ids=[1042811421718761606])  # this decorator makes a slash command
+@bot.slash_command(name="seconds", description="Set a timer in seconds",guild_ids=[1042811421718761606])
 @option("seconds", description="Number of seconds")
 async def timer(ctx, seconds: int):
     print("A timer was set. Duration: " + str(seconds) + " seconds")
@@ -51,8 +44,7 @@ async def timer(ctx, seconds: int):
 # my implementation of a timer command(in seconds). I could make it so it takes days and hours but I'm too lazy
 
 ##########################
-@bot.slash_command(name="b64_e", description="Encodes a string using base64",
-                   guild_ids=[1042811421718761606])  # base64 encode command
+@bot.slash_command(name="b64_e", description="Encodes a string using base64",guild_ids=[1042811421718761606])  # base64 encode command
 @option("string")
 async def b64_e(ctx, string: str):
     async with ctx.typing():
@@ -189,11 +181,11 @@ async def on_message_edit(before, after):
     print("The following message was edited: " + str(before.content) + " channel: " + str(before.channel.mention))
     logs.close
 
-
+@bot.listen()
 async def on_message(message):
     logs = open("msg_logs.txt", "a")
     logs.write("\n" + str(message.author) + "(" + str(message.created_at) + ")" + ": " + str(message.content) + "   channel: " + str(message.channel.mention))
-    print("The following message was logged: " + str(message.content) + " written by " + str(message.author) + " channel: " + str(message.channel.mention))
+    print("The following message was logged: " + str(message.content) + " |written by " + str(message.author) + " channel: " + str(message.channel.mention))
     logs.close
     print("Logs file size: " + str(os.path.getsize("msg_logs.txt")))
     if int(os.path.getsize("msg_logs.txt")) > 10000:
@@ -327,8 +319,9 @@ async def on_message(message):
 
 @bot.event
 async def anime_search(ctx, anime_name:str):
-    search = AnimeSearch(anime_name)
-    await ctx.respond (str(search.results[0].title)+ ":"+"\n"+str(search.results[0].url))
+    search = jikan.search('anime', anime_name, page=1, parameters={"limit" :"1"})
+    #print(search["data"][0]["url"])
+    await ctx.respond (str(search["data"][0]["url"]))
 ##########
 @bot.slash_command(name="anime_character_search", description="Search for anime character", guild_ids=[1042811421718761606])
 @option("character_name")
@@ -336,8 +329,11 @@ async def anime_search(ctx, anime_name:str):
 
 @bot.event
 async def anime_character_search(ctx, character_name:str):
-    search = AnimeCharacterSearch(character_name)
-    await ctx.respond (str(search.results[0].name)+ ":"+"\n"+str(search.results[0].url))
+    search = jikan.search('characters', character_name, page=1, parameters={"limit" :"1"})
+    #print(search["data"][0]["url"])
+    await ctx.respond (str(search["data"][0]["url"]))
+    
+
 ##########
 @bot.slash_command(name="manga_search", description="Search for manga", guild_ids=[1042811421718761606])
 @option("manga_name")
@@ -345,7 +341,16 @@ async def anime_character_search(ctx, character_name:str):
 
 @bot.event
 async def manga_search(ctx, manga_name:str):
-    search = MangaSearch(manga_name)
-    await ctx.respond (str(search.results[0].title)+ ":"+"\n"+str(search.results[0].url))    
-##########    
+    search = jikan.search('manga', manga_name, page=1, parameters={"limit" :"1"})
+    #print(search["data"][0]["url"])
+    await ctx.respond (str(search["data"][0]["url"]))  
+##########
+@bot.slash_command(name="servers", description="Lists the servers that the bot is on", guild_ids=[1042811421718761606])
+@bot.event
+async def servers( ctx):
+    activeservers = bot.guilds
+    for guild in activeservers:
+        await ctx.respond(guild.name)
+        print(guild.name)
+
 bot.run(discord_token)
