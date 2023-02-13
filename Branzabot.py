@@ -38,7 +38,7 @@ game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "squ
                 "square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "MTAxOTY1NjYxNjkyMjA2MjkyOA.GOmKyd.zOPnMIezuC6_A-bQq3dAhB1TEFPFlIDSOBv780"
+discord_token = "im tired"
 intents = discord.Intents.all()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
