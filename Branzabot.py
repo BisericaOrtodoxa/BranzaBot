@@ -15,11 +15,11 @@ from jikanpy import Jikan  # jikanpy_v4
 
 jikan = Jikan()
 qcf = "<:236:1074633458275602455>"
-qcb = "<:214:1074633166670807141>"
+qcb_emoji = "<:qcb:1074633166670807141>"
 dp_regular = "<:dp:1074634272775884811>"
 dp_reversed = "<:421:1074634289427251310>"
 half_circle_forward = "<:41236:1074633617034194965>"
-half_circle_back = "<:63214:1074633787297779824>"
+half_circle_back = "<:f_cb:1074633787297779824>"
 six_emoji = "<:6_:1074634127061553193>"
 one_emoji = ""
 three_emoji = ""
@@ -38,7 +38,7 @@ game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "squ
                 "square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "im tired"
+discord_token = "not leaking this again"
 intents = discord.Intents.all()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
@@ -88,6 +88,7 @@ async def b64_e(ctx, string: str):
 def motion_replacer(msg_content):
     msg_content_v2 = ""
     one_emoji = ""
+    two_emoji = "<:2_:1074634029422346260> "
     three_emoji = ""
     four_emoji = "<:4_:1074634110301130802>"
     five_emoji = ""
@@ -100,6 +101,9 @@ def motion_replacer(msg_content):
     s_emoji="<:s_:1074647569172529233>"
     hs_emoji="<:hs:1074647555801100288>"
     d_emoji="<:d_:1074647542219948112>"
+    
+    qcb_emoji = "<:qcb:1074633166670807141>"
+    half_circle_back = "<:f_cb:1074633787297779824>"
     def attack_replacer(discord_message):
         discord_message_1=""
         discord_message_2=""
@@ -124,6 +128,38 @@ def motion_replacer(msg_content):
         else:
             discord_message_5 =discord_message_4.replace("S",s_emoji)
         return discord_message_5
+    def six_replacer(x):
+        if "6" in msg_content:
+            msg_content_v2 = x.replace("6<", six_emoji+"<")            
+            return msg_content_v2        
+    def two_replacer(x):
+        if "2" in msg_content:       
+            msg_content_v2 = x.replace("2<", two_emoji+"<")
+
+            print (msg_content_v2)
+            return msg_content_v2        
+    def singular_direction_replacer(x):
+        #if "1" in msg_content:       
+        #    msg_content_v2 = x.replace("1<", one_emoji+"<")            
+        if "2" in x:       
+            x = x.replace("2<", two_emoji+"<")
+        #if "3" in msg_content:       
+        #    msg_content_v2 = x.replace("3<", three_emoji+"<")
+        if "4" in x:  
+            print("BEFORE!!!!  "+ msg_content)
+            x = x.replace("4<", four_emoji+"<")
+            print("BEFORE!!!!  "+ msg_content)
+        #if "5" in msg_content:       
+        #    msg_content_v2 = x.replace("5<", five_emoji+"<")
+        if "6" in x:       
+            x = x.replace("6<", six_emoji+"<")
+        #if "7" in msg_content:       
+        #    msg_content_v2 = x.replace("7<", seven_emoji+"<")
+        if "8" in x:       
+            x = x.replace("8<", eight_emoji+"<")
+        #if "9" in msg_content:       
+        #   msg_content_v2 = x.replace("9<", nine_emoji+"<")
+        return x    
     if ":236:" in msg_content:
         pass
     elif ":421:" in msg_content:
@@ -153,23 +189,13 @@ def motion_replacer(msg_content):
                         
                         if "623" in msg_content:
                             msg_content_v2 = msg_content_v2.replace("623", "<:dp:1074634272775884811>")
-                            
-                            if "421" in msg_content:
-                                msg_content_v2 = msg_content_v2.replace("421", "<:421:1074634289427251310>")
-                                
-                                if "236" in msg_content:
-                                    msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
-                                    
-                                    if "214" in msg_content:
-                                        msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-                                        
-                                        if "2P" or "2K" or "2S" or "2HS" or "2D" in msg_content:
-                                            msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                                            msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                                            msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                                            msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                                            msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                                            
+                            if "236" in msg_content:
+                                msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
+                        if "421" in msg_content:
+                            msg_content_v2 = msg_content_v2.replace("421", "<:421:1074634289427251310>")   
+                            if "214" in msg_content:
+                                msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")                                        
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)
                                             
         elif "41236" in msg_content:
             msg_content_v2 = msg_content.replace("41236", "<:41236:1074633617034194965>")
@@ -188,119 +214,26 @@ def motion_replacer(msg_content):
                      
                             if "214" in msg_content:
                                 msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-                 
-                                if "2" in msg_content:
-                                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                       
-                                if "6" in msg_content:
-                                    msg_content_v2 = msg_content_v2.replace("6P", six_emoji)
-                                    msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                                    msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                                    msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                                    msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-                              
-            else:
-                if "2" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                  
-                if "6" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("6P", "<:6_:1074634127061553193>" )
-                    msg_content_v2 = msg_content_v2.replace("6K", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6S", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6HS", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6D", "<:6_:1074634127061553193>")
-                    msg_content_v2 = attack_replacer(msg_content_v2)
 
+
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)
         elif "63214" in msg_content:
-            msg_content_v2 = msg_content.replace("63214", "<:63214:1074633787297779824>")
+            msg_content_v2 = msg_content.replace("63214", half_circle_back)
             msg_content_v2 = attack_replacer(msg_content_v2)
             if "623" in msg_content:
-                msg_content_v2 = msg_content_v2.replace("623", "<:dp:1074634272775884811>")
+                msg_content_v2 = msg_content_v2.replace("623", "<:dp:1074634272775884811>")       
+                if "236" in msg_content:
+                    msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
+                      
+            if "214" in msg_content:
+                msg_content_v2 = msg_content_v2.replace("214", qcb_emoji)
                 if "421" in msg_content:
                     msg_content_v2 = msg_content_v2.replace("421", "<:421:1074634289427251310>")
-                   
-                    if "236" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
-                      
-                        if "214" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-                            
-                        if "236" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
-                            
-                            if "2" in msg_content:
-                                msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                                msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                                msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                                msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                                msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                                
-                            if "6" in msg_content:
-                                msg_content_v2 = msg_content_v2.replace("6P", six_emoji)
-                                msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                                msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                                msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                                msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-                                
-                    else:
-                        if "2" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                           
-                        if "6" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("6P", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6K", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6S", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6HS", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6D", "<:6_:1074634127061553193>")
-                            
-                else:
-                    if "2" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>" + p_emoji)
-                        msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>K")
-                        msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>S")
-                        msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>HS")
-                        msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>D")
-                        msg_content_v2 = attack_replacer(msg_content_v2)
-                    if "6" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("6P", "<:6_:1074634127061553193>" + p_emoji)
-                        msg_content_v2 = msg_content_v2.replace("6K", "<:6_:1074634127061553193>" + "K")
-                        msg_content_v2 = msg_content_v2.replace("6S", "<:6_:1074634127061553193>" + "S")
-                        msg_content_v2 = msg_content_v2.replace("6HS", "<:6_:1074634127061553193>" + "HS")
-                        msg_content_v2 = msg_content_v2.replace("6D", "<:6_:1074634127061553193>" + "D")
-                        msg_content_v2 = attack_replacer(msg_content_v2)
-            else:
-                if "2" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                    
-                if "6" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("6P", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6K", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6S", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6HS", "<:6_:1074634127061553193>")
-                    msg_content_v2 = msg_content_v2.replace("6D", "<:6_:1074634127061553193>")
-                    
 
-
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)
         elif "623" in msg_content:
             msg_content_v2 = msg_content.replace("623", "<:dp:1074634272775884811>")
-            msg_content_v2 = attack_replacer(msg_content_v2)
-            print("?????????????????????"+msg_content_v2)
+            msg_content_v2 = attack_replacer(msg_content_v2)            
             if "421" in msg_content:
                 msg_content_v2 = msg_content_v2.replace("421", "<:421:1074634289427251310>")
 
@@ -309,112 +242,11 @@ def motion_replacer(msg_content):
 
                     if "236" in msg_content:
                         msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
-
-                        if "2" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-
-                        if "6" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("6P", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6K", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6S", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6HS", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6D", "<:6_:1074634127061553193>")
-
-                    else:
-                        if "2" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                            msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-
-                        if "6" in msg_content:
-                            msg_content_v2 = msg_content_v2.replace("6P", "<:6_:1074634127061553193>")
-                            msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                            msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                            msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                            msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-
-                else:
-                    if "2" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                        msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                        msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                        msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                        msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-                       
-                    if "6" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("6P", six_emoji)
-                        msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                        msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                        msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                        msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-
-            else:
-                if "2" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>"+p_emoji)
-                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>K")
-                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>S")
-                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>HS")
-                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>D")
-                    msg_content_v2 = attack_replacer(msg_content_v2)
-                if "6" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("6P", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-
             if "214" in msg_content:
-                msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-                if "2P" or "2K" or "2S" or "2HS" or "2D" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>"+p_emoji)
-                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>K")
-                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>S")
-                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>HS")
-                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>D")
-                    msg_content_v2 = attack_replacer(msg_content_v2)
-                if "6" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("6P", six_emoji + p_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6K", six_emoji + "K")
-                    msg_content_v2 = msg_content_v2.replace("6S", six_emoji + "S")
-                    msg_content_v2 = msg_content_v2.replace("6HS", six_emoji + "HS")
-                    msg_content_v2 = msg_content_v2.replace("6D", six_emoji + "D")
-                    msg_content_v2 = attack_replacer(msg_content_v2)
+                msg_content_v2 = msg_content_v2.replace("214", qcb_emoji)
             if "236" in msg_content:
                 msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
-                if "2" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>"+p_emoji)
-                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>K")
-                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>S")
-                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>HS")
-                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>D")
-                    msg_content_v2 = attack_replacer(msg_content_v2)
-                if "6" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("6P<:2_:1074634029422346260>", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-                    msg_content_v2 = attack_replacer(msg_content_v2)
-            else:
-                if "2" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>"+p_emoji)
-                    msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>K")
-                    msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>S")
-                    msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>HS")
-                    msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>D")
-       
-                if "6" in msg_content:
-                    msg_content_v2 = msg_content_v2.replace("6P", six_emoji + p_emoji)
-                    msg_content_v2 = msg_content_v2.replace("6K", six_emoji + "K")
-                    msg_content_v2 = msg_content_v2.replace("6S", six_emoji + "S")
-                    msg_content_v2 = msg_content_v2.replace("6HS", six_emoji + "HS")
-                    msg_content_v2 = msg_content_v2.replace("6D", six_emoji + "D")
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)
  
         elif "421" in msg_content:
             msg_content_v2 = msg_content.replace("421", "<:421:1074634289427251310>")
@@ -424,58 +256,20 @@ def motion_replacer(msg_content):
                 msg_content_v2 = attack_replacer(msg_content_v2)
                 if "214" in msg_content:
                     msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-                    if "2P" or "2K" or "2S" or "2HS" or "2D" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>"+p_emoji)
-                        msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>K")
-                        msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>S")
-                        msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>HS")
-                        msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>D")
-                        msg_content_v2 = attack_replacer(msg_content_v2)
-                    if "6" in msg_content:
-                        msg_content_v2 = msg_content_v2.replace("6P", six_emoji + p_emoji)
-                        msg_content_v2 = msg_content_v2.replace("6K", six_emoji + "K")
-                        msg_content_v2 = msg_content_v2.replace("6S", six_emoji + "S")
-                        msg_content_v2 = msg_content_v2.replace("6HS", six_emoji + "HS")
-                        msg_content_v2 = msg_content_v2.replace("6D", six_emoji + "D")
-                        msg_content_v2 = attack_replacer(msg_content_v2)
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)       
         elif "236" in msg_content:
             msg_content_v2 = attack_replacer(msg_content)
             msg_content_v2 = msg_content_v2.replace("236", "<:236:1074633458275602455>")
             if "214" in msg_content:
                 msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-            if "2" in msg_content_v2:
-                print("|||||||||||||||||||||"+ msg_content)
-                msg_content_v2 = msg_content_v2.replace("2P<", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2K<", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2S<", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2HS<", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2D<", "<:2_:1074634029422346260>")
-                
-            if "6" in msg_content:
-                msg_content_v2 = msg_content_v2.replace("6<", six_emoji+"<")
-                msg_content_v2 = msg_content_v2.replace("6K<", six_emoji+"<")
-                msg_content_v2 = msg_content_v2.replace("6S<", six_emoji+"<")
-                msg_content_v2 = msg_content_v2.replace("6HS<", six_emoji+"<")
-                msg_content_v2 = msg_content_v2.replace("6D<", six_emoji+"<")
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)
                  
 
         elif "214" in msg_content:
             msg_content_v2 = msg_content.replace("214", "<:214:1074633166670807141>")
             msg_content_v2 = attack_replacer(msg_content_v2)
-            if "2" in msg_content:
-                msg_content_v2 = msg_content_v2.replace("2P", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2K", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2S", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2HS", "<:2_:1074634029422346260>")
-                msg_content_v2 = msg_content_v2.replace("2D", "<:2_:1074634029422346260>")
-
-            if "6" in msg_content:
-                msg_content_v2 = msg_content_v2.replace("6P", six_emoji)
-                msg_content_v2 = msg_content_v2.replace("6K", six_emoji)
-                msg_content_v2 = msg_content_v2.replace("6S", six_emoji)
-                msg_content_v2 = msg_content_v2.replace("6HS", six_emoji)
-                msg_content_v2 = msg_content_v2.replace("6D", six_emoji)
-
+            msg_content_v2 = singular_direction_replacer(msg_content_v2)
+			
         if msg_content != msg_content_v2:
             return str(msg_content_v2)
         if msg_content == msg_content_v2:
