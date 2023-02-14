@@ -5,15 +5,14 @@ import asyncio
 import time
 import base64
 # import youtube_dl
-
 import os
 from datetime import datetime
 from discord.ext import commands
 import platform
-
-from jikanpy import Jikan  # jikanpy_v4
+from jikanpy import Jikan  # must be jikanpy_v4!
 
 jikan = Jikan()
+############ fighting game input emojis
 qcf = "<:236:1074633458275602455>"
 qcb_emoji = "<:qcb:1074633166670807141>"
 dp_regular = "<:dp:1074634272775884811>"
@@ -29,22 +28,17 @@ six_emoji = ""
 seven_emoji = ""
 eight_emoji = ""
 nine_emoji = ""
-
-
-
-
 #########
 game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0,
                 "square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "not leaking this again"
+discord_token = "your very own secret string"
 intents = discord.Intents.all()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
 number_emotes = ("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟")
 number_of_options_xrd = -1
-
 
 ##########################
 @bot.slash_command(name="google", description="Searches a website for the desired info",
@@ -58,9 +52,7 @@ async def google(ctx, term,
     async with ctx.typing():
         for j in search(str(term) + " " + str(website), num=1, stop=1):
             await ctx.respond(j)
-
-            #####################################
-
+#####################################
 
 @bot.slash_command(name="seconds", description="Set a timer in seconds")  # this decorator makes a slash command
 @option("seconds", description="Number of seconds")
@@ -91,7 +83,7 @@ def motion_replacer(msg_content):
     two_emoji = "<:2_:1074634029422346260> "
     three_emoji = ""
     four_emoji = "<:4_:1074634110301130802>"
-    five_emoji = ""
+    five_emoji = "<:neutral:1075002232099045387> "
     six_emoji = "<:6_:1074634127061553193>"
     seven_emoji = ""
     eight_emoji = "<:8_:1074634053174693918>"
@@ -119,6 +111,7 @@ def motion_replacer(msg_content):
         else:    
             discord_message_2 =discord_message_1.replace("K",k_emoji)       
         discord_message_3 =discord_message_2.replace("HS",hs_emoji)
+        discord_message_3 =discord_message_3.replace("H",hs_emoji)
         if "D_" in discord_message:
             discord_message_4 =discord_message_3
         else:     
@@ -140,36 +133,33 @@ def motion_replacer(msg_content):
             return msg_content_v2        
     def singular_direction_replacer(x):
         #if "1" in msg_content:       
-        #    msg_content_v2 = x.replace("1<", one_emoji+"<")            
+        #    x = x.replace("1<", one_emoji+"<")            
         if "2" in x:       
             x = x.replace("2<", two_emoji+"<")
         #if "3" in msg_content:       
-        #    msg_content_v2 = x.replace("3<", three_emoji+"<")
+        #   x = x.replace("3<", three_emoji+"<")
         if "4" in x:  
             print("BEFORE!!!!  "+ msg_content)
             x = x.replace("4<", four_emoji+"<")
             print("BEFORE!!!!  "+ msg_content)
-        #if "5" in msg_content:       
-        #    msg_content_v2 = x.replace("5<", five_emoji+"<")
+        if "5" in msg_content:
+            x = x.replace("5<", five_emoji+"<")
+         
         if "6" in x:       
             x = x.replace("6<", six_emoji+"<")
         #if "7" in msg_content:       
-        #    msg_content_v2 = x.replace("7<", seven_emoji+"<")
+        #    x = x.replace("7<", seven_emoji+"<")
         if "8" in x:       
             x = x.replace("8<", eight_emoji+"<")
         #if "9" in msg_content:       
-        #   msg_content_v2 = x.replace("9<", nine_emoji+"<")
+        #   x = x.replace("9<", nine_emoji+"<")
         return x    
-    if ":236:" in msg_content:
-        pass
-    elif ":421:" in msg_content:
-        pass
-    elif ":623:" in msg_content:
+
+    if ":623:" in msg_content:
         pass
     elif ":63214:" in msg_content:
         pass
-    elif ":41236:" in msg_content:
-        pass
+
     elif ":214:" in msg_content:
         pass
     else:
@@ -435,7 +425,7 @@ async def on_message(message):
     if int(os.path.getsize("msg_logs.txt")) > 8_000_000:
         logs = open("msg_logs.txt", "r")
         await message.channel.send("Logs file size limit exceeded(8mb)), sending logs then deleting server copy")
-        await message.channel.send(file=discord.File('msg_logs.txt'))
+        #await message.channel.send(file=discord.File('msg_logs.txt'))    i dont wnat it to be sent for now 
         os.remove("demofile.txt")
         logs.close
         ###################### motion input transformer corner
