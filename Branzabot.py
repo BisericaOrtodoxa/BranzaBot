@@ -29,11 +29,10 @@ seven_emoji = ""
 eight_emoji = ""
 nine_emoji = ""
 #########
-game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0,
-                "square_8": 0, "square_9": 0}
+game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0, "square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "your very own secret string"
+discord_token = "no"
 intents = discord.Intents.all()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
@@ -41,14 +40,12 @@ number_emotes = ("1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣
 number_of_options_xrd = -1
 
 ##########################
-@bot.slash_command(name="google", description="Searches a website for the desired info",
-                   guild_ids=[1042811421718761606])  # this decorator makes a slash command
+@bot.slash_command(name="google", description="Searches a website for the desired info", guild_ids=[1042811421718761606])  # this decorator makes a slash command
 @option("website", description="Enter website", required=False, default='')
 @option("term", description="")
-# options for the created command
 
-async def google(ctx, term,
-                 website: str):  # command that performs a Google search based on user input via slash command
+
+async def google(ctx, term, website: str):  # command that performs a Google search based on user input via slash command
     async with ctx.typing():
         for j in search(str(term) + " " + str(website), num=1, stop=1):
             await ctx.respond(j)
@@ -62,11 +59,10 @@ async def timer(ctx, seconds: int):
     await asyncio.sleep(seconds)
     await ctx.respond("Time has passed")
 
-
 # my implementation of a timer command(in seconds). I could make it so it takes days and hours but I'm too lazy
 
-##########################
-@bot.slash_command(name="b64_e", description="Encodes a string using base64")  # base64 encode command
+########################## base64 encode command
+@bot.slash_command(name="b64_e", description="Encodes a string using base64")  
 @option("string")
 async def b64_e(ctx, string: str):
     async with ctx.typing():
@@ -75,8 +71,15 @@ async def b64_e(ctx, string: str):
         base64_string = base64_to_ascii.decode("utf8")
         await ctx.respond(base64_string)
 
-
-#####################################
+@bot.slash_command(name="b64_d", description="Decode a string using base64")  
+@option("string")
+async def b64_d(ctx, string: str):
+    async with ctx.typing():
+        string_to_ascii = string.encode("ascii")
+        base64_to_ascii = base64.b64decode(string_to_ascii)
+        
+        await ctx.respond( base64_to_ascii)
+##################################### this replaces the numpad notation in a message with a visual indicator of the inputs and attacks
 def motion_replacer(msg_content):
     msg_content_v2 = ""
     one_emoji = ""
@@ -120,39 +123,37 @@ def motion_replacer(msg_content):
             discord_message_5 =discord_message_4
         else:
             discord_message_5 =discord_message_4.replace("S",s_emoji)
-        return discord_message_5
-    def six_replacer(x):
-        if "6" in msg_content:
-            msg_content_v2 = x.replace("6<", six_emoji+"<")            
-            return msg_content_v2        
-    def two_replacer(x):
-        if "2" in msg_content:       
-            msg_content_v2 = x.replace("2<", two_emoji+"<")
-
-            print (msg_content_v2)
-            return msg_content_v2        
+        return discord_message_5     
     def singular_direction_replacer(x):
         #if "1" in msg_content:       
-        #    x = x.replace("1<", one_emoji+"<")            
+        #    x = x.replace("1<", one_emoji+"<")
+        def repeated_replacer(x,number,number_emoji):
+            x = x.replace(" "+number, " "+number_emoji)
+            x = x.replace(number+" ", number_emoji+" ")
+            x = x.replace(number+"<", number_emoji+"<")
+            x = x.replace(">"+number, ">"+number_emoji)
+            x = x.replace(number+"<", number_emoji+"<")
+            x = x.replace(">"+number, ">"+number_emoji)
+            return x
         if "2" in x:       
-            x = x.replace("2<", two_emoji+"<")
+            x = repeated_replacer(x,"2",two_emoji) 
         #if "3" in msg_content:       
         #   x = x.replace("3<", three_emoji+"<")
         if "4" in x:  
-            print("BEFORE!!!!  "+ msg_content)
-            x = x.replace("4<", four_emoji+"<")
-            print("BEFORE!!!!  "+ msg_content)
+            #print("BEFORE!!!!  "+ msg_content)
+            x = repeated_replacer(x,"4",four_emoji)            
+            #print("AFTER!!!!  "+ msg_content)
         if "5" in msg_content:
-            x = x.replace("5<", five_emoji+"<")
+            x = repeated_replacer(x,"5",five_emoji)
          
         if "6" in x:       
-            x = x.replace("6<", six_emoji+"<")
+            x = repeated_replacer(x,"6",six_emoji)
         #if "7" in msg_content:       
-        #    x = x.replace("7<", seven_emoji+"<")
+        #   x = repeated_replacer(x,"7",seven_emoji)
         if "8" in x:       
-            x = x.replace("8<", eight_emoji+"<")
+            x = repeated_replacer(x,"8",eight_emoji)
         #if "9" in msg_content:       
-        #   x = x.replace("9<", nine_emoji+"<")
+        #   x = repeated_replacer(x,"9",nine_emoji)
         return x    
 
     if ":623:" in msg_content:
@@ -259,7 +260,7 @@ def motion_replacer(msg_content):
             msg_content_v2 = msg_content.replace("214", "<:214:1074633166670807141>")
             msg_content_v2 = attack_replacer(msg_content_v2)
             msg_content_v2 = singular_direction_replacer(msg_content_v2)
-			
+        msg_content_v2 = singular_direction_replacer(msg_content_v2)	
         if msg_content != msg_content_v2:
             return str(msg_content_v2)
         if msg_content == msg_content_v2:
@@ -270,8 +271,8 @@ def motion_replacer(msg_content):
 # if "sus" in message.content:
 # await message.reply('Among SUS', mention_author=False)
 
-####################################
-@bot.slash_command(name="x_or_o", description="Play X and O!", guild_ids=[1042811421718761606])
+#####################################my x and o command, i wont bother to implement instances. so each game can be nteracted with by anyone
+@bot.slash_command(name="x_or_o", description="Play X and O!", guild_ids=[1042811421718761606]) 
 @option("x_or_o", choices=["X", "O"])
 @option("square_number")
 @option("reset", description="empties the board", required=False, choices=["yes"])
@@ -382,12 +383,11 @@ async def xor0(ctx, x_or_o: str, square_number: int, reset):
 
 @bot.event
 async def on_ready():
-    print(f'We have logged in as {bot.user}' + " Running on: " + str(platform.platform()))
+    print(f'We have logged in as {bot.user}' + " Running on: " + str(platform.platform())) #message displayed on bot login, also displays info about the platfor it is hosted on
 
 
 ###################################### message logging. logs:messages sent, deleted and edited and stores them into msg_logs.txt. Upon request via slash command, this file is uploaded to discord
-@bot.slash_command(name="logs", description="Fetch the logs from the stored file(the bot messages are also stored)",
-                   guild_ids=[1042811421718761606])  # this decorator makes a slash command
+@bot.slash_command(name="logs", description="Fetch the logs from the stored file(the bot messages are also stored)", guild_ids=[1042811421718761606])
 async def logs(ctx):
     print("The logs command was run")
     logs = open("msg_logs.txt", "r")
@@ -425,10 +425,10 @@ async def on_message(message):
     if int(os.path.getsize("msg_logs.txt")) > 8_000_000:
         logs = open("msg_logs.txt", "r")
         await message.channel.send("Logs file size limit exceeded(8mb)), sending logs then deleting server copy")
-        #await message.channel.send(file=discord.File('msg_logs.txt'))    i dont wnat it to be sent for now 
+        #await message.channel.send(file=discord.File('msg_logs.txt'))    i dont wnat the logs to be sent automatically for now
         os.remove("demofile.txt")
         logs.close
-        ###################### motion input transformer corner
+        ###################### motion input transformer corner(the actual code is above) 
     if motion_replacer(message.content) != None and message.author != bot.user:
         if motion_replacer(message.content) != "":
             await message.reply(motion_replacer(message.content), mention_author=False)
@@ -564,9 +564,8 @@ async def anime_search(ctx, anime_name: str):
     await ctx.respond(str(search["data"][0]["url"]))
 
 
-##########
-@bot.slash_command(name="anime_character_search", description="Search for anime character",
-                   guild_ids=[1042811421718761606])
+########## this searches user input on mal and returns the first link(anime character)
+@bot.slash_command(name="anime_character_search", description="Search for anime character", guild_ids=[1042811421718761606])
 @option("character_name")
 @bot.event
 async def anime_character_search(ctx, character_name: str):
@@ -575,7 +574,7 @@ async def anime_character_search(ctx, character_name: str):
     await ctx.respond(str(search["data"][0]["url"]))
 
 
-##########
+########## this searches user input on mal and returns the first link(manga)
 @bot.slash_command(name="manga_search", description="Search for manga")
 @option("manga_name")
 @bot.event
@@ -585,7 +584,7 @@ async def manga_search(ctx, manga_name: str):
     await ctx.respond(str(search["data"][0]["url"]))
 
 
-##########
+########## Lists the servers that the bot is on, in you wite "sure" in the invite option, the bot will give you links to those servers too(if it has the permission to generate them)
 @bot.slash_command(name="servers", description="Lists the servers that the bot is on", guild_ids=[1042811421718761606])
 @option("invite", required=False, default='')
 @bot.event
