@@ -23,7 +23,7 @@ half_circle_back = "<:f_cb:1074633787297779824>"
 game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0, "square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "what if god was one of us"
+discord_token = "just a stranger in a bus"
 intents = discord.Intents.all()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
@@ -89,6 +89,7 @@ def motion_replacer(msg_content):
     qcb_emoji = "<:qcb:1074633166670807141>"
     qcf_emoji="<:qcf:1074633458275602455>"
     half_circle_back = "<:f_cb:1074633787297779824>"
+    lets_hope_nobody_types_this= "<{[||ball$InYOm@m@j@ws"
     def attack_replacer(discord_message):
         discord_message_1=""
         discord_message_2=""
@@ -102,9 +103,11 @@ def motion_replacer(msg_content):
         if "K_" in discord_message:
             discord_message_2 =discord_message_1
         else:    
-            discord_message_2 =discord_message_1.replace("K",k_emoji)       
-        discord_message_3 =discord_message_2.replace("HS",hs_emoji)
+            discord_message_2 =discord_message_1.replace("K",k_emoji)
+        discord_message_3 =discord_message_2.replace("CH",lets_hope_nobody_types_this)
+        discord_message_3 =discord_message_3.replace("HS",hs_emoji)
         discord_message_3 =discord_message_3.replace("H",hs_emoji)
+        discord_message_3 =discord_message_3.replace(lets_hope_nobody_types_this,"CH")
         if "D_" in discord_message:
             discord_message_4 =discord_message_3
         else:     
@@ -112,12 +115,16 @@ def motion_replacer(msg_content):
         if "S_" in discord_message:    
             discord_message_5 =discord_message_4
         else:
-            discord_message_5 =discord_message_4.replace("S",s_emoji)
+            discord_message_5 =discord_message_4.replace("WS",lets_hope_nobody_types_this)
+            discord_message_5 =discord_message_5.replace("S",s_emoji)
+            discord_message_5 =discord_message_5.replace(lets_hope_nobody_types_this,"WS")
         return discord_message_5     
     def singular_direction_replacer(x):
         def repeated_replacer(x,number,number_emoji):
             x = x.replace(" "+number, " "+number_emoji)
             x = x.replace(number+" ", number_emoji+" ")
+            x = x.replace("("+number, " "+number_emoji)
+            x = x.replace(number+")", number_emoji+")")            
             x = x.replace(number+"<", number_emoji+"<")
             x = x.replace(">"+number, ">"+number_emoji)
             x = x.replace(number+"<", number_emoji+"<")
