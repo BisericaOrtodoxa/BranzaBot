@@ -19,20 +19,11 @@ dp_regular = "<:dp:1074634272775884811>"
 dp_reversed = "<:421:1074634289427251310>"
 half_circle_forward = "<:41236:1074633617034194965>"
 half_circle_back = "<:f_cb:1074633787297779824>"
-six_emoji = "<:6_:1074634127061553193>"
-one_emoji = ""
-three_emoji = ""
-four_emoji = "<:4_:1074634110301130802>"
-five_emoji = ""
-six_emoji = ""
-seven_emoji = ""
-eight_emoji = ""
-nine_emoji = ""
 #########
 game_squares = {"square_1": 0, "square_2": 0, "square_3": 0, "square_4": 0, "square_5": 0, "square_6": 0, "square_7": 0, "square_8": 0, "square_9": 0}
 square_1, square_2, square_3, square_4, square_5, square_6, square_7, square_8, square_9 = 0, 0, 0, 0, 0, 0, 0, 0, 0
 site = " wikipedia.org"
-discord_token = "token uwu"
+discord_token = "what if god was one of us"
 intents = discord.Intents.all()
 intents.message_content = True
 bot = discord.Bot(intents=intents)
@@ -49,8 +40,7 @@ async def google(ctx, term, website: str):  # command that performs a Google sea
     async with ctx.typing():
         for j in search(str(term) + " " + str(website), num=1, stop=1):
             await ctx.respond(j)
-#####################################
-
+###################################### my implementation of a timer command(in seconds). I could make it so it takes days and hours but I'm too lazy
 @bot.slash_command(name="seconds", description="Set a timer in seconds")  # this decorator makes a slash command
 @option("seconds", description="Number of seconds")
 async def timer(ctx, seconds: int):
@@ -58,8 +48,6 @@ async def timer(ctx, seconds: int):
     await ctx.respond("Timer set to " + str(seconds) + " seconds")
     await asyncio.sleep(seconds)
     await ctx.respond("Time has passed")
-
-# my implementation of a timer command(in seconds). I could make it so it takes days and hours but I'm too lazy
 
 ########################## base64 encode and decode commands
 @bot.slash_command(name="b64_e", description="Encodes a string using base64")  
@@ -82,7 +70,7 @@ async def b64_d(ctx, string: str):
 ##################################### this replaces the numpad notation in a message with a visual indicator of the inputs and attacks
 def motion_replacer(msg_content):
     msg_content_v2 = ""
-    one_emoji = ""
+    one_emoji = "<:1_:1077555101994057738>"
     two_emoji = "<:2_:1074634029422346260> "
     three_emoji = ""
     four_emoji = "<:4_:1074634110301130802>"
@@ -135,8 +123,8 @@ def motion_replacer(msg_content):
             x = x.replace(number+"<", number_emoji+"<")
             x = x.replace(">"+number, ">"+number_emoji)
             return x
-        #if "1" in x:       
-        #    x = repeated_replacer(x,"1",one_emoji)         
+        if "1" in x:       
+            x = repeated_replacer(x,"1",one_emoji)         
         if "2" in x:       
             x = repeated_replacer(x,"2",two_emoji) 
         #if "3" in msg_content:       
@@ -214,7 +202,6 @@ def motion_replacer(msg_content):
                 msg_content_v2 = msg_content.replace("214", "<:214:1074633166670807141>")
             else:
                 msg_content_v2 = msg_content_v2.replace("214", "<:214:1074633166670807141>")
-
 
         msg_content_v2 = singular_direction_replacer(msg_content_v2)
         msg_content_v2 = attack_replacer(msg_content_v2)
@@ -300,8 +287,7 @@ async def xor0(ctx, x_or_o: str, square_number: int, reset):
             square_changer(1)
         if x_or_o == "O" or x_or_o == "o":
             square_changer(2)
-    await ctx.respond(
-        number_to_emoji(game_squares["square_1"]) + number_to_emoji(game_squares["square_2"]) + number_to_emoji(game_squares["square_3"]) + "\n" + number_to_emoji(game_squares["square_4"]) + number_to_emoji(game_squares["square_5"]) + number_to_emoji(game_squares["square_6"]) + "\n" + number_to_emoji(game_squares["square_7"]) + number_to_emoji(game_squares["square_8"]) + number_to_emoji(game_squares["square_9"]))  # send the state of the board after each move
+    await ctx.respond(number_to_emoji(game_squares["square_1"]) + number_to_emoji(game_squares["square_2"]) + number_to_emoji(game_squares["square_3"]) + "\n" + number_to_emoji(game_squares["square_4"]) + number_to_emoji(game_squares["square_5"]) + number_to_emoji(game_squares["square_6"]) + "\n" + number_to_emoji(game_squares["square_7"]) + number_to_emoji(game_squares["square_8"]) + number_to_emoji(game_squares["square_9"]))  # send the state of the board after each move
     if win_state(1) == "win":  # checks if x won
         await ctx.channel.send("X won! Resetting board")
         board_reset()
@@ -309,13 +295,10 @@ async def xor0(ctx, x_or_o: str, square_number: int, reset):
         await ctx.channel.send("O won! Resetting board")
         board_reset()
 
-
 #####################################
-
 @bot.event
 async def on_ready():
-    print(f'We have logged in as {bot.user}' + " Running on: " + str(platform.platform())) #message displayed on bot login, also displays info about the platfor it is hosted on
-
+    print(f'We have logged in as {bot.user}' + " Running on: " + str(platform.platform())) #message displayed on bot login, also displays info about the platform it is hosted on
 
 ###################################### message logging. logs:messages sent, deleted and edited and stores them into msg_logs.txt. Upon request via slash command, this file is uploaded to discord
 @bot.slash_command(name="logs", description="Fetch the logs from the stored file(the bot messages are also stored)", guild_ids=[1042811421718761606])
@@ -325,7 +308,6 @@ async def logs(ctx):
     await ctx.respond(file=discord.File('msg_logs.txt'))
     logs.close
 
-
 @bot.listen()
 async def on_message_delete(message):
     logs = open("msg_logs.txt", "a")
@@ -333,7 +315,6 @@ async def on_message_delete(message):
         message.content) + "   channel: " + str(message.channel.mention))
     print("The following message was deleted: " + str(message.content) + " channel: " + str(message.channel.mention))
     logs.close
-
 
 @bot.listen()
 async def on_message_edit(before, after):
@@ -343,14 +324,11 @@ async def on_message_edit(before, after):
     print("The following message was edited: " + str(before.content) + " channel: " + str(before.channel.mention))
     logs.close
 
-
 @bot.listen()
 async def on_message(message):
     logs = open("msg_logs.txt", "a")
-    logs.write("\n" + str(message.author) + "(" + str(message.created_at) + ")" + ": " + str(
-        message.content) + "   channel: " + str(message.channel.mention))
-    print("The following message was logged: " + str(message.content) + " |written by " + str(
-        message.author) + " channel: " + str(message.channel.mention))
+    logs.write("\n" + str(message.author) + "(" + str(message.created_at) + ")" + ": " + str(message.content) + "   channel: " + str(message.channel.mention))
+    print("The following message was logged: " + str(message.content) + " |written by " + str(message.author) + " channel: " + str(message.channel.mention))
     logs.close
     print("Logs file size: " + str(os.path.getsize("msg_logs.txt")))
     if int(os.path.getsize("msg_logs.txt")) > 8_000_000:
@@ -363,7 +341,6 @@ async def on_message(message):
     if motion_replacer(message.content) != None and message.author != bot.user:
         if motion_replacer(message.content) != "":
             await message.reply(motion_replacer(message.content), mention_author=False)
-
 
 ###################################### this turns user input into a poll with added reaction emoij for voting reasons
 @bot.slash_command(name="poll", description="Make a poll", guild_ids=[1042811421718761606])
